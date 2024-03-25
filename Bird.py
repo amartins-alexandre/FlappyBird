@@ -43,8 +43,8 @@ class Bird:
         self.tick_count += 1
 
         # Calculate displacement
-        shift = self.vel * self.tick_count + 1.5 * self.tick_count ** 2
-        if shift >= 16:
+        shift = self.vel * self.tick_count + 1.5 * (self.tick_count ** 2)
+        if shift > 16:
             shift = 16
 
         if shift < 0:
@@ -56,12 +56,10 @@ class Bird:
         if shift < 0 or self.y < (self.height + 50):
             if self.tilt < self.MAX_ROTATION:
                 self.tilt = self.MAX_ROTATION
-            else:
-                if self.tilt > -90:
-                    self.tilt -= self.ROT_VEL
         else:
-            if self.tilt < 25:
-                self.tilt += self.ROT_VEL
+            # If the bird is moving down, tilt it downwards
+            if self.tilt > -90:
+                self.tilt -= self.ROT_VEL
 
     def draw(self, screen):
         # Update the image of the bird
